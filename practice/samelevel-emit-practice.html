@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div id="app">
+        <app-header v-bind:propdata="num"></app-header>
+        <app-content v-on:pass="pass"></app-content>
+        <app-increase v-on:increase="increaseFunc"></app-increase>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
+    <script src="https://unpkg.com/vue-router@3.5.3/dist/vue-router.js"></script>
+    <script>
+        
+        const headerComponent = {
+            template : '<div>Header : {{ propdata }} </div>',
+            props: [ 'propdata' ]
+        }
+
+        const contentComponent = {
+            template : '<div>Pass  <button v-on:click="passNum">pass</button></div>',
+            methods : {
+                passNum : function() {
+                    this.$emit('pass' , 20);
+                }
+            }
+        }
+
+        const increaseComponent = {
+            template : '<button v-on:click="onIncrease">Increase</button>',
+            methods : {
+                onIncrease : function() {
+                    this.$emit('increase');
+                }
+            }
+        }
+
+        new Vue({
+            el : '#app',
+            components : {
+                'app-header' : headerComponent,
+                'app-content' : contentComponent,
+                'app-increase' : increaseComponent
+            },
+            methods : {
+                pass : function(value) {
+                    this.num = value;
+                },
+                increaseFunc : function(value) {
+                    this.num++;
+                }
+            },
+            data : {
+                num : 0
+            }
+        })
+
+    </script>
+
+</body>
+</html>
