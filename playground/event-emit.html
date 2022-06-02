@@ -8,36 +8,33 @@
 </head>
 <body>
     <div id="app">
+        <!-- v-on:하위 이벤트 받을 파라미터 = "상위 이벤트 메소드 이름" -->
         <app-header v-on:pass="logText"></app-header>
         <app-content v-bind:number="num" v-on:increase="increaseNumber"></app-content>
         <app-num v-bind:number="num"></app-num>
     </div>
-
     <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
     <script>
         var appHeader = {
             template: '<button v-on:click="passEvent">click me</button>',
             methods: {
                 passEvent: function() {
-                    this.$emit('pass');
+                    this.$emit('pass');  // 상위 이벤트 전달
                 }
             }
         };
-
         var appContent = {
             template: '<button v-on:click="addNumber">ADD</button>',
             methods: {
                 addNumber: function(){
-                    this.$emit('increase');
+                    this.$emit('increase'); // 상위 이벤트 전달
                 }
             }
         }
-
         var appNum = {
             template: '<h1>{{number}}</h1>',
             props: ['number']
         }
-
         new Vue({
             el: '#app',
             components: {
@@ -45,7 +42,7 @@
                 'app-content' : appContent,
                 'app-num' : appNum
             },
-            methods:{
+            methods:{  // 상위에서 하위에 전달할 이벤트들 정의
                 logText : function() {
                     console.log('hi');
                 },
@@ -57,7 +54,6 @@
                 num: 10
             }
         });
-
     </script>
 </body>
 </html>
