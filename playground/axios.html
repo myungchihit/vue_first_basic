@@ -13,7 +13,7 @@
           {{ users }}
         </div>
     </div>
-
+    
     <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
     <!-- <script src="https://unpkg.com/vue-router@3.5.3/dist/vue-router.js"></script> -->
     <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
@@ -23,12 +23,15 @@
       data: {
         users: []
       },
+      
       methods: {
         getData: function() { 
           var vm = this;
           axios.get('https://jsonplaceholder.typicode.com/users/')
             .then(function(response) {
               console.log(response.data);
+              // 여기서 this를 쓰면 안된다.
+              // 비동기 처리해
               vm.users = response.data;
             })
             .catch(function(error) {

@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div id="app">
+        <p>{{ str }}</p> <!-- 데이터 바인딩 -->
+        <p v-bind:id="uuid" v-bind:class="name">{{ num }}</p>
+        <p>{{ doubleNum }}</p>
+        <div v-if="loading"> <!-- dom을 아예 삭제한다. -->
+            Loading....
+        </div>
+        <div v-else="">
+            test user has been logged in
+        </div>
+        <div v-show="loading"> <!-- 화면에 없어져도 dom은 남는다. display:none 처리만 함-->
+            Loading.....
+        </div>
+        <!-- TODO: input 박스를 만들고 입력된 값을 P 태그에 출력해 보시오. -->
+        <input v-model="message" type="text" />
+        <p>
+            {{ message }}
+        </p>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
+    <script>
+        // 디렉티브 : v- 붙이는거
+        new Vue({
+            el: '#app',
+            data: {
+                str: 'hi',  // 데이터 바인딩
+                num: 10,
+                uuid: 'abc123', // 특정데이터를 이용하여 id관리
+                name: 'text-blue',
+                loading: true,
+                message: '',
+            },
+            computed: { 
+                doubleNum : function() {
+                    return this.num * 2;
+                }
+            }
+        })
+    </script>
+</body>
+</html>
